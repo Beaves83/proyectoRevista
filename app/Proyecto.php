@@ -10,15 +10,15 @@ class Proyecto extends Model
 {
     protected  $table = 'proyecto';
     
-    //Devuelve todos los elementos de tipo Usuario que estén relacionados con el proyecto.
-    //Relación de uno a muchos.
-    public function usuarios(){
-        return $this->hasMany('Usuario');
-    }
+    public $timestamps = true;
+    
+    protected $fillable = [
+        'codigo', 'nombre', 'descripcion', 'numero', 'fechainicio', 'fechafinprevista', 'id_estado'
+    ];
     
     //Devuelve todos los elementos de tipo Tarea que estén relacionados con el proyecto.
-    //Relación de uno a muchos.
     public function tareas(){
-        return $this->hasMany('Tarea');
+        return $this->hasMany('App\Tarea', 'Id_Proyecto', 'Id')
+                ->select(array('Codigo', 'Nombre', 'Id_Usuario', 'Id_Proyecto', 'Id_TipoTarea','Id_Estado'));
     }
 }

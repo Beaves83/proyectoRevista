@@ -11,6 +11,13 @@ class Tarea extends Model
 {
     protected  $table = 'tarea';
     
+    public $timestamps = true;
+    
+    protected $fillable = [
+        'codigo', 'nombre', 'descripcion', 'fechainicio', 'id_usuario', 'id_proyecto',
+        'id_tipotarea', 'id_estado'
+    ];
+    
     //Muchas tareas pueden estar asociadas a un usuario.
     //Relación de uno a muchos inversa ( muchos a uno).
     public function usuario(){
