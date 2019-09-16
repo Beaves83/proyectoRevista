@@ -13,7 +13,7 @@ class UsuarioController extends Controller
         return response()->json(Usuario::get(), 200);
     }
     
-    //Devuelve el listado de tareas asociadas al usuario.
+    //Devuelve el listado de tareas asociadas al usuario en un proyecto.
     public function tareas(Request $request){   
         $json = $request -> input('json', null);
         
@@ -23,16 +23,7 @@ class UsuarioController extends Controller
         //Obtener el usuario
         $usuario = new Usuario();
         $usuario = Usuario::find($params_array['Id_Usuario']);
-        
-        //$usuario->Id =  $params_array['Id_Usuario'];
-        //$tareas = $usuario->hasMany('Tarea', 'Id_Usuario');
-        
-        //Obtener las tareas de este usuario. Más adelante pasaremos un párametros para devolver todas o todas menos las finalizadas.
-        
-        //Devolver las tareas del usuario.
-        //return response() -> json($params_array, 200);
-        //return $json;
-        //return $params_array['Id_Usuario'];
-        return $usuario;
+        //return $params_array['Id_Proyecto'];
+        return $usuario ->tareas;
     }
 }
