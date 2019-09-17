@@ -77,6 +77,23 @@ class UsuarioController extends Controller
         //return response() -> json($data, $data['code']);       
     }
     
+    //Elmiinamos un usuario.
+    public function eliminar(Request $request){   
+        $json = $request -> input('json', null);      
+        $params_array = json_decode($json,true);
+        
+        //Eliminamos el usuario
+        $usuario = Usuario::find($params_array['Id_Usuario']);
+        
+        $usuarioBorrado = Usuario::where('id',$params_array['Id_Usuario'])->delete();
+        if($usuarioBorrado > 0){
+            return "Usuario con el id ".$params_array['Id_Usuario']." ha sido borrado.";
+        }     
+        else {
+            return "No se ha encontrado el usuario.";
+        } 
+    }
+    
     //Devuelve un listado de usuarios
     public function listado(){   
         return response()->json(Usuario::get(), 200);

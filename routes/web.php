@@ -5,6 +5,7 @@ use App\Usuario;
 //Rutas del controlador de usuario
 Route::get('/usuario/listado','UsuarioController@listado');
 Route::get('/usuario/anadir','UsuarioController@anadir');
+Route::get('/usuario/eliminar','UsuarioController@eliminar');
 Route::get('/usuario/actualizar','UsuarioController@actualizar');
 Route::get('/usuario/tareas','UsuarioController@tareas');
 
@@ -13,6 +14,7 @@ Route::get('/usuario/tareas','UsuarioController@tareas');
 Route::get('/tarea/listado','TareaController@listado');
 Route::get('/tarea/anadir','TareaController@anadir');
 Route::get('/tarea/actualizar','TareaController@actualizar');
+Route::get('/tarea/eliminar','TareaController@eliminar');
 
 
 //Rutas del controlador de proyecto

@@ -78,4 +78,22 @@ class TareaController extends Controller
         return $data;
         //return response() -> json($data, $data['code']);       
     }
+      
+    //Elmiinamos una tarea.
+    public function eliminar(Request $request){   
+        $json = $request -> input('json', null);      
+        $params_array = json_decode($json,true);
+        
+        //Eliminamos el usuario
+        $tarea = \App\Tarea::find($params_array['Id_Tarea']);
+        
+        if(!empty($tarea) && ($tarea->Id_Estado != "9")){
+            Tarea::where('id', $params_array['Id_Tarea'])
+            ->update(['id_estado' => "9"]);
+            return "La tarea con el id ".$params_array['Id_Tarea']." ha sido borrada.";
+        }     
+        else {
+            return "No se ha encontrado la tarea.";
+        } 
+    }
 }
