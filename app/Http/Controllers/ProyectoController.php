@@ -25,4 +25,70 @@ class ProyectoController extends Controller
         //return $params_array['Id_Proyecto'];
         return $proyecto ->tareas;
     }
+    
+    //añade un proyecto a la base de datos.
+    public function anadir(Request $request){    
+        //Recoger los datos del usuario por post
+        $json = $request -> input('json', null);
+        $params = json_decode($json);
+        $params_array = json_decode($json, true);
+        
+        if(!empty($params) && !empty($params_array)){
+          
+            //Limpiar datos
+            $params_array = array_map('trim',$params_array);
+
+            //Validar esos datos
+            $validate = \Validator::make($params_array, [
+                'descripcion'       => 'max:400',
+                'numero'            => 'numeric|unique:proyecto',
+                'codigo'            => 'required|alpha_num|unique:proyecto|max:150',
+                'nombre'            => 'required|max:150',
+                'fechainicio'       => 'date',
+                'fechafinprevista'  => 'date',
+                'id_estado'         => 'required|numeric'
+            ]);
+            
+            if($validate->fails()){        
+                $data = array (
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => 'El proyecto no se ha creado.',
+                    'errors' => $validate->errors()
+                );            
+            } else {
+                //Crear el usuario
+                $proyecto = new Proyecto();
+                $proyecto->descripcion = $params_array['descripcion'];
+                $proyecto->numero = $params_array['numero'];
+                $proyecto->codigo = $params_array['codigo'];
+                $proyecto->nombre = $params_array['nombre'];
+                $proyecto->fechainicio = $params_array['fechainicio'];
+                $proyecto->fechafinprevista = $params_array['fechafinprevista'];
+                $proyecto->id_estado = $params_array['id_estado'];
+
+                //Guardar el usuario. Esto es un 'insert into' en BBDD.
+                $proyecto->save();
+            
+            
+                $data = array (
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'El proyecto se ha creado correctamente.',
+                    'proyecto' => $proyecto
+                );
+            }
+        } else {           
+     
+            $data = array (
+                    'status' => 'error',
+                    'code' => 404,
+                    'message' => 'Los datos enviados no son correctos.'
+                );
+        }
+        
+        return $data;
+        //return response() -> json($data, $data['code']);       
+    }
+    
 }

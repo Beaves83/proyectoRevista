@@ -10,9 +10,7 @@ class UsuarioController extends Controller
 {    
     
     //añade un usuario a la base de datos.
-    public function anadir(Request $request){   
-        
-       
+    public function anadir(Request $request){    
         //Recoger los datos del usuario por post
         $json = $request -> input('json', null);
         $params = json_decode($json);
@@ -25,11 +23,13 @@ class UsuarioController extends Controller
 
             //Validar esos datos
             $validate = \Validator::make($params_array, [
-                'codigo'        => 'required|alpha_num',
-                'nombre'        => 'required|alpha_num',
-//                'apellidos'     => 'required|alpha_dash',
-                'id_rol'        => 'required|numeric'
-                //'fechainicio'     => 'required|date'
+                'username'      => 'required|unique:usuario|max:150',
+                'password'      => 'max:150',
+                'codigo'        => 'required|unique:usuario|max:150',
+                'nombre'        => 'required|max:150',
+                'apellidos'     => 'max:150',
+                'id_rol'        => 'required|numeric',
+                'telefono'      => 'max:150'
   
             ]);
             
@@ -44,6 +44,7 @@ class UsuarioController extends Controller
                 //Crear el usuario
                 $user = new Usuario();
                 $user->username = $params_array['username'];
+                $user->password = $params_array['password'];
                 $user->codigo = $params_array['codigo'];
                 $user->nombre = $params_array['nombre'];
                 $user->apellidos = $params_array['apellidos'];
