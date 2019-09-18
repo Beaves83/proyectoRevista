@@ -19,6 +19,8 @@ class Proyecto extends Model
     //Devuelve todos los elementos de tipo Tarea que estén relacionados con el proyecto.
     public function tareas(){
         return $this->hasMany('App\Tarea', 'Id_Proyecto', 'Id')
-                ->select(array('Codigo', 'Nombre', 'Id_Usuario', 'Id_Proyecto', 'Id_TipoTarea','Id_Estado'));
+                
+                ->select(array('Codigo', 'Nombre', 'Id_Usuario', 'Id_Proyecto', 'Id_TipoTarea','Id_Estado'))
+                ->where('Id_Estado', '!=', '9');
     }
 }

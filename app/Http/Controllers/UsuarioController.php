@@ -77,7 +77,7 @@ class UsuarioController extends Controller
         //return response() -> json($data, $data['code']);       
     }
     
-    //Elmiinamos un usuario.
+    //Elmiinamos un usuario
     public function eliminar(Request $request){   
         $json = $request -> input('json', null);      
         $params_array = json_decode($json,true);
@@ -96,7 +96,7 @@ class UsuarioController extends Controller
     
     //Devuelve un listado de usuarios
     public function listado(){   
-        return response()->json(Usuario::get(), 200);
+        return response()->json(Usuario::get()->where('Id_Estado', '!=', '9'), 200);
     }
     
     //Devuelve el listado de tareas asociadas al usuario y a un proyecto.

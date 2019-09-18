@@ -20,13 +20,15 @@ class Usuario extends Model
     //Devuelve todos los elementos de tipo Tarea que estén relacionados con el usuario.
     public function tareas(){       
         return $this->hasMany('App\Tarea', 'Id_Usuario', 'Id')
-                ->select(array('Codigo', 'Nombre', 'Id_Usuario', 'Id_Proyecto', 'Id_Estado'));
+                ->select(array('Codigo', 'Nombre', 'Id_Usuario', 'Id_Proyecto', 'Id_Estado'))
+                ->where('Id_Estado', '!=', '9');
     }
     
     //Devuelve todos los elementos de tipo Tarea que estén relacionados con el usuario en un proyecto.
     public function tareasPorProyecto($id_proyecto){       
         return $this->hasMany('App\Tarea', 'Id_Usuario', 'Id')
-                ->where('tarea.Id_Proyecto', $id_proyecto);
+                ->where('tarea.Id_Proyecto', $id_proyecto)
+                ->where('Id_Estado', '!=', '9');
     }
 }
 

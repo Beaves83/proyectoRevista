@@ -91,4 +91,22 @@ class ProyectoController extends Controller
         //return response() -> json($data, $data['code']);       
     }
     
+    
+        //Elmiinamos una tarea.
+    public function eliminar(Request $request){   
+        $json = $request -> input('json', null);      
+        $params_array = json_decode($json,true);
+        
+        //Eliminamos el usuario
+        $proyecto = \App\Proyecto::find($params_array['Id_Proyecto']);
+        
+        if(!empty($proyecto) && ($proyecto->Id_Estado != "10")){
+            Proyecto::where('id', $params_array['Id_Proyecto'])
+            ->update(['id_estado' => "10"]);
+            return "El proyecto con el id ".$params_array['Id_Proyecto']." ha sido borrado.";
+        }     
+        else {
+            return "No se ha encontrado el proyecto.";
+        } 
+    }
 }

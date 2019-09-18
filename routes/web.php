@@ -2,6 +2,11 @@
 
 use App\Usuario;
 
+//Ruta de inicio
+Route::get('/', function () {
+    return view('welcome');
+});
+
 //Rutas del controlador de usuario
 Route::get('/usuario/listado','UsuarioController@listado');
 Route::get('/usuario/anadir','UsuarioController@anadir');
@@ -22,3 +27,13 @@ Route::get('/proyecto/listado','ProyectoController@listado');
 Route::get('/proyecto/anadir','ProyectoController@anadir');
 Route::get('/proyecto/actualizar','ProyectoController@actualizar');
 Route::get('/proyecto/tareas','ProyectoController@tareas');
+Route::get('/proyecto/eliminar','ProyectoController@eliminar');
+
+
+//Rutas de ejemplo
+Route::get('/listados/usuarios', function () {
+    return view('listados/usuarios');
+});
+Route::get('/temporal', function () {
+    return view('temporal');
+});
