@@ -37,3 +37,6 @@ Route::get('/listados/usuarios', function () {
 Route::get('/temporal', function () {
     return view('temporal');
 });
+Route::get('/temporal2', function () {
+    return view('temporal2');
+});
