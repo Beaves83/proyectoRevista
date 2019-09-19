@@ -110,4 +110,11 @@ class UsuarioController extends Controller
         return $usuario ->tareasPorProyecto($params_array['Id_Proyecto'])->get();
         
     }
+    
+    
+    //ESTO ES DE PRUEBA
+    public function listado2(){   
+        $variable = response()->json(Usuario::get()->where('Id_Estado', '!=', '9'), 200);
+        return view('temporal2',compact('variable'));
+    }
 }
